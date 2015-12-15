@@ -399,7 +399,7 @@ function getPage(url, position)
         reader.onload = function(){
           var result=document.getElementById("result");
           load_data = this.result;
-          result.innerHTML=this.result; 
+          //result.innerHTML=this.result; 
           //str to json
           //alert(load_data);
           indatas = JSON.parse(load_data);
@@ -460,7 +460,7 @@ function getPage(url, position)
 </form>
 
         <div id="setInfo">
-            <input type="button" onclick="toggleInput()" value="批量导入 PC URL" class="bt"/>
+            <!--<input type="button" onclick="toggleInput()" value="批量导入 PC URL" class="bt"/> -->
             <input type="button" onclick="setPrefix('left',1)" value="设置中间窗口前缀" class="bt"> </input>
             <input type="button" onclick="setPrefix('right',1)" value="设置右边窗口前缀" class="bt"></input>
             <input type="button" onclick="displayHistoryPrefix()" value="窗口历史前缀" class="bt"></input>
@@ -474,13 +474,15 @@ function getPage(url, position)
         <div>
             <select id="mySelect" style="width:600px" onchange='copyURLText()'>
             </select>
-            <input type="button" onclick="handleForm()" value="select URL" class="bt">
-            <input type="button" onclick="handleNext(1)" value="next URL" class="bt">
-            <input type="button" onclick="handleNext(-1)" value="pre URL" class="bt">
+            <input type="button" onclick="handleForm()" value="select data" class="bt">
+            <input type="button" onclick="handleNext(1)" value="next data" class="bt">
+            <input type="button" onclick="handleNext(-1)" value="pre data" class="bt">
+            <!--
             <span style="display:inline-block; border:1px solid red">
               <input type="text" id="selectIndex" value="1" style="width:40px">
-              <input type="button" onclick="handleSelect()" value="select xx URL" class="bt">
+              <input type="button" onclick="handleSelect()" value="select xx URL" class="bt"> 
             </span>
+            -->
             </br>
             输入一个query :
             <input type="text"  id="myInput" style="width:800px"  /> 
@@ -506,10 +508,15 @@ function getPage(url, position)
         </div>
         <div id="result" name="result"></div>
         <div id="help"><pre>
+          <!--
           可能的窗口前缀： 
           搜索前端： http://m.baidu.com/l=3/tc?srd=1&dict=30&src=
           可能的数据前缀：http://m.baidu.com/l=3/tc?srd=1&dict=30&tc_source=1&src=    
           批量导入时，会过滤掉低于5个字符的url
+        -->
+          辛苦了亲们！有什么问题请hi：nealgavin 吧~
+          匆忙写的，如有不便，hi上喷吧~
+          ^-^
          </pre>          
         </div>
     </body>
