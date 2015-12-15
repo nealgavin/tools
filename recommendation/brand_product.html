@@ -92,8 +92,8 @@ function showpcpage(json_data){
   for(var iter in json_data.recommend_list){
      var rc_list = json_data.recommend_list; 
      //alert(JSON.stringify(rc_list[iter]));
-     var str_link = '<span>product_id: product_id_str</span><a href="product_url" target="_blank"> product_name</a><br><br>';
-     str_link = str_link.replace("product_url", rc_list[iter].product_link);
+     var str_link = "<span>product_id: product_id_str</span><a href='product_url' target='_blank' onclick=parent.createtagwindows('product_url')> product_name</a><br><br>";
+     str_link = str_link.replace(/product_url/g, rc_list[iter].product_link);
      str_link = str_link.replace("product_name", rc_list[iter].product_name);
      str_link = str_link.replace("product_id_str", rc_list[iter].product_id);
      ret_str = ret_str + str_link;
@@ -223,7 +223,11 @@ function insertOption(optionArr)
         getPage(myinput, "left")
         getPage(myinput, "right")
     }
-
+    function createtagwindows(url){
+      //打开一个标签窗口
+      //alert(url);
+      window.open(url);
+    }
 
 function handleNext(count)
 {
