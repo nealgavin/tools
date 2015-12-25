@@ -71,17 +71,22 @@ function init()
 function handleForm()
 {
   //初始化global_count,显示第一条信息
-  global_count = 0
-  var init_data = indatas[0];
+ // var init_data = indatas[0];
+  var num = $("#data_id_input").val();
+  num -= 1;
+  global_count = num;
+  if(num<0 || num >= indatas.length){
+    alert("亲！你的输入范围有问题哦~");
+  }
   //alert(init_data.brand_tag+'god bless me');
-  showpcpage(init_data);
+  showpcpage(indatas[num], num+1, indatas.length);
   /*
     var x=document.getElementById("mySelect").selectedIndex;
     getPage(urls[x]);
     */
 }
 
-function showpcpage(json_data){
+function showpcpage(json_data, id_now, indatas_len){
   //将json数据变换为html代码展示
   var ret_str = "<span>品牌：brand 建材：material</span><br><br><br>";
   if(!json_data.brand_tag||!json_data.material_tag) {
@@ -92,11 +97,14 @@ function showpcpage(json_data){
   for(var iter in json_data.recommend_list){
      var rc_list = json_data.recommend_list; 
      //alert(JSON.stringify(rc_list[iter]));
-     var str_link = "<span>product_id: product_id_str product_price: product_price_str</span><br><a href='product_url' target='_blank' onclick=parent.createtagwindows('product_url')> product_name</a><br><br>";
+     var str_link = "<span>num_id:num_id_str all_data_num:all_data_num_str all_num:all_str</span><br><span>product_id: product_id_str product_price: product_price_str</span><br><a href='product_url' target='_blank' onclick=parent.createtagwindows('product_url')> product_name</a><br><br>";
      str_link = str_link.replace(/product_url/g, rc_list[iter].product_link);
      str_link = str_link.replace("product_name", rc_list[iter].product_name);
      str_link = str_link.replace("product_id_str", rc_list[iter].product_id);
      str_link = str_link.replace("product_price_str", rc_list[iter].product_price);
+     str_link = str_link.replace("num_id_str", id_now.toString());
+     str_link = str_link.replace("all_data_num_str", indatas_len.toString());
+     str_link = str_link.replace("all_str", rc_list.length.toString());
      ret_str = ret_str + str_link;
   }
   //alert(ret_str);
@@ -240,7 +248,7 @@ function handleNext(count)
     alert("error: 已经点到底了哦！亲~ ^-^");
   }else{
     global_count = global_count + count;
-    showpcpage(indatas[ans_count]);
+    showpcpage(indatas[ans_count], ans_count+1, indatas.length);
   }
   /*
     var x=document.getElementById("mySelect").selectedIndex+count;
@@ -477,8 +485,7 @@ function getPage(url, position)
             <input type="button" value="导入" id="subUrl" onclick="handleBatchInput()" />
         </div>
         <div>
-            <select id="mySelect" style="width:600px" onchange='copyURLText()'>
-            </select>
+            <input type="text" id="data_id_input" value="1" style="width:400px" />
             <input type="button" onclick="handleForm()" value="select data" class="bt">
             <input type="button" onclick="handleNext(1)" value="next data" class="bt">
             <input type="button" onclick="handleNext(-1)" value="pre data" class="bt">
